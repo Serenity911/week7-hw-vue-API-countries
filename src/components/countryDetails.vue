@@ -1,9 +1,11 @@
 <template lang="html">
-<p>I am country details</p>
+<h1>{{ country.name }}</h1>
 </template>
 
 <script>
 export default {
+  name: "countryDetail",
+  props: ['country']
 }
 </script>
 

@@ -1,10 +1,15 @@
 <template>
   <div>
     <country-selector :countries='countries'> </country-selector>
+    <div>
+      <country-details v-if='selectedCountry' :country='selectedCountry'> </country-details>
+      <!-- <p v-if='selectedCountry'>{{ selectedCountry.name }}</p> -->
+    </div>
   </div>
 </template>
 
 <script>
+import { eventBus } from './main.js'
 import CountrySelector from './components/countrySelector.vue'
 import CountryDetails from './components/countryDetails.vue'
 
@@ -18,6 +23,7 @@ export default {
   },
   mounted() {
     this.fetchCountries()
+    eventBus.$on('country-selected', (selection) => { this.selectedCountry = selection})
   },
   methods: {
     fetchCountries: function () {

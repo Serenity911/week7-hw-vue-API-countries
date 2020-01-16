@@ -3,36 +3,46 @@
   <input type="text" name="" v-model="typedCountry">
   <select v-model="selection">
     <!-- <option disabled value="">Please select one</option> -->
+    <!-- it has to be set as default when is selected -->
     <option v-for="(country, index) in countries" :key='index' :value="country" >{{ country.name }}</option>
   </select>
 </div>
 </template>
 
 <script>
+import { eventBus } from '../main.js'
 export default {
   name: "country-selector",
   props: ['countries'],
   data() {
     return {
       selection: null,
-      typedCountry: null
+      typedCountry: ""
     }
   },
+  watch: {
+    searchCountry(value) {
+      this.selection = value;
+      eventBus.$emit('country-selected', value);
+    },
+    selection(value) {
+      eventBus.$emit('country-selected', value);
+    }
+  },
+  // methods: {
   computed: {
-    // logSelection() {
-    //   // console.log(this.selection);
-    //   return this.selection;
+    // emitFromSelection() {
+    //   eventBus.$emit('country-selected', this.selection)
     // },
+
     searchCountry() {
-      // console.log(this.typedCountry);
-      let countriesMapped = this.countries.map(country => country.name)
-      // console.log(countriesMapped);
-      let startWithName = countriesMapped.find(countryName => countryName.toLowerCase().startsWith(this.typedCountry.toLowerCase()))
-      let findObjCountry = this.countries.find(country => country.name === startWithName)
-      this.selection = findObjCountry
+      const countriesMapped = this.countries.map(country => country.name)
+      const startWithName = countriesMapped.find(countryName => countryName.toLowerCase().startsWith(this.typedCountry.toLowerCase()))
+      const findObjCountry = this.countries.find(country => country.name === startWithName)
+      // this.selection = findObjCountry
       return findObjCountry
-      // console.log(startWithName);
-      }
+    },
+
     }
   }
 
