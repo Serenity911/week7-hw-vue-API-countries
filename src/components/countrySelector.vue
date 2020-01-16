@@ -19,16 +19,18 @@ export default {
     }
   },
   computed: {
-    logSelection() {
-      // console.log(this.selection);
-      return this.selection;
-    },
+    // logSelection() {
+    //   // console.log(this.selection);
+    //   return this.selection;
+    // },
     searchCountry() {
       // console.log(this.typedCountry);
       let countriesMapped = this.countries.map(country => country.name)
       // console.log(countriesMapped);
       let startWithName = countriesMapped.find(countryName => countryName.toLowerCase().startsWith(this.typedCountry.toLowerCase()))
-      return this.selection = startWithName
+      let findObjCountry = this.countries.find(country => country.name === startWithName)
+      this.selection = findObjCountry
+      return findObjCountry
       // console.log(startWithName);
       }
     }
