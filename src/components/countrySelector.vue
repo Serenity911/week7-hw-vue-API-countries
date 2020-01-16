@@ -39,6 +39,7 @@ export default {
       const countriesMapped = this.countries.map(country => country.name)
       const startWithName = countriesMapped.find(countryName => countryName.toLowerCase().startsWith(this.typedCountry.toLowerCase()))
       const findObjCountry = this.countries.find(country => country.name === startWithName)
+      // computed should never assign
       // this.selection = findObjCountry
       return findObjCountry
     },
